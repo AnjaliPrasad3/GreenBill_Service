@@ -1,0 +1,33 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:mongodb="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- Tagging the database initialization -->
+    <changeSet id="20250321-1" author="Anjali">
+        <tagDatabase tag="init"/>
+    </changeSet>
+
+    <!-- Create Collection -->
+    <changeSet id="20250321-2" author="Anjali">
+        <mongodb:createCollection collectionName="users"/>
+        <rollback>
+            <mongodb:dropCollection collectionName="users"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20250321-3" author="Anjali">
+        <mongodb:insertOne collectionName="users">
+            <mongodb:document>
+                {
+                "user_name":"Anajli",
+                "user_email":"anjali@gmail.com",
+                "user_phone":"999999999"
+                }
+            </mongodb:document>
+        </mongodb:insertOne>
+    </changeSet>
+
+</databaseChangeLog>
